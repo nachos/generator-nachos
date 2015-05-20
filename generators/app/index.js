@@ -54,6 +54,11 @@ module.exports = yeoman.generators.Base.extend({
         { name: this.name}
       );
       this.fs.copyTpl(
+        this.templatePath('_.bowerrc'),
+        this.destinationPath('.bowerrc'),
+        { clientFolder: this.clientFolder}
+      );
+      this.fs.copyTpl(
         this.templatePath('_nwPackage.json'),
         this.destinationPath(path.join(this.clientFolder,'package.json')),
         { name: this.name,
