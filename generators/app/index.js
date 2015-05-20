@@ -3,6 +3,7 @@ var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
 var path = require('path');
+var fs = require('fs');
 
 module.exports = yeoman.generators.Base.extend({
   prompting: function () {
@@ -43,10 +44,17 @@ module.exports = yeoman.generators.Base.extend({
 
   writing: {
     app: function () {
+      // Make all the dirs because yeoman can't create an empty bower_components
+      var clientFolder = path.join(this.destinationRoot(), this.clientFolder);
+      fs.mkdirSync(clientFolder);
+      var bowerFolder = path.join(clientFolder, 'bower_components');
+      fs.mkdirSync(bowerFolder);
+
       this.fs.copyTpl(
         this.templatePath('_package.json'),
         this.destinationPath('package.json'),
-        { name: this.name }
+        { name: this.name,
+          description: this.description }
       );
       this.fs.copyTpl(
         this.templatePath('_bower.json'),
@@ -56,7 +64,12 @@ module.exports = yeoman.generators.Base.extend({
       this.fs.copyTpl(
         this.templatePath('_.bowerrc'),
         this.destinationPath('.bowerrc'),
-        { clientFolder: this.clientFolder}
+        { clientFolder: this.clientFolder }
+      );
+      this.fs.copyTpl(
+        this.templatePath('_gulpfile.js'),
+        this.destinationPath('gulpfile.js'),
+        { clientFolder: this.clientFolder  }
       );
       this.fs.copyTpl(
         this.templatePath('_nwPackage.json'),
@@ -67,6 +80,10 @@ module.exports = yeoman.generators.Base.extend({
       this.fs.copy(
         this.templatePath('index.html'),
         this.destinationPath(path.join(this.clientFolder,'index.html') )
+      );
+      this.fs.copy(
+        this.templatePath('_app.less'),
+        this.destinationPath(path.join(path.join(this.clientFolder, 'app'),'app.less') )
       );
     },
 
@@ -83,6 +100,7 @@ module.exports = yeoman.generators.Base.extend({
   },
 
   install: function () {
+    this.log(yosay('Soon we will install node-webkit, this might take a little while'))
     this.installDependencies();
   }
 });
