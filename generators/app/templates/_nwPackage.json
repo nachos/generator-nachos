@@ -1,0 +1,17 @@
+{
+  "name": "<%= name %>",
+  "version": "0.0.0",
+  "description": "<%= description %>",
+  "main": "index.html",
+  "window": {
+    "toolbar": false,
+    "frame": false,
+    "position": "center",
+    "fullscreen": false,
+    "resizable": true,
+    "transparent": true,
+    "width": 1000,
+    "height": 800
+  }
+}
+

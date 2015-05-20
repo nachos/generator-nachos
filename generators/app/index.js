@@ -2,6 +2,7 @@
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
+var path = require('path');
 
 module.exports = yeoman.generators.Base.extend({
   prompting: function () {
@@ -9,19 +10,32 @@ module.exports = yeoman.generators.Base.extend({
 
     // Have Yeoman greet the user.
     this.log(yosay(
-      'Welcome to the praiseworthy ' + chalk.red('Nachos') + ' generator!'
+      'Welcome to the praiseworthy ' + chalk.yellow('Nachos') + ' generator!'
     ));
 
     var prompts = [{
-      type: 'confirm',
-      name: 'someOption',
-      message: 'Would you like to enable this option?',
-      default: true
+      type    : 'input',
+      name    : 'name',
+      message : 'What is your Taco\'s name?',
+      default : this.appname
+    },
+    {
+      type    : 'input',
+      name    : 'description',
+      message : 'What does your Taco do?',
+      default : 'El loco Taco'
+    },
+    {
+      type    : 'input',
+      name    : 'clientFolder',
+      message : 'How would you like your client folder to be named?',
+      default : 'client'
     }];
 
-    this.prompt(prompts, function (props) {
-      this.props = props;
-      // To access props later use this.props.someOption;
+    this.prompt(prompts, function (answers) {
+      this.name = answers.name;
+      this.description = answers.description;
+      this.clientFolder = answers.clientFolder;
 
       done();
     }.bind(this));
@@ -29,13 +43,25 @@ module.exports = yeoman.generators.Base.extend({
 
   writing: {
     app: function () {
-      this.fs.copy(
+      this.fs.copyTpl(
         this.templatePath('_package.json'),
-        this.destinationPath('package.json')
+        this.destinationPath('package.json'),
+        { name: this.name }
+      );
+      this.fs.copyTpl(
+        this.templatePath('_bower.json'),
+        this.destinationPath('bower.json'),
+        { name: this.name}
+      );
+      this.fs.copyTpl(
+        this.templatePath('_nwPackage.json'),
+        this.destinationPath(path.join(this.clientFolder,'package.json')),
+        { name: this.name,
+          description: this.description }
       );
       this.fs.copy(
-        this.templatePath('_bower.json'),
-        this.destinationPath('bower.json')
+        this.templatePath('index.html'),
+        this.destinationPath(path.join(this.clientFolder,'index.html') )
       );
     },
 

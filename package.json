@@ -1,10 +1,10 @@
 {
   "name": "generator-nachos",
   "version": "0.0.0",
-  "description": "Yeoman generator",
+  "description": "Yeoman generator for Nachos tacos",
   "license": "MIT",
   "main": "app/index.js",
-  "repository": "DingoMyst/generator-nachos",
+  "repository": "nachos/generator-nachos",
   "author": {
     "name": "Amir Schlezinger",
     "email": "",
