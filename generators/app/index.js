@@ -4,6 +4,7 @@ var chalk = require('chalk');
 var yosay = require('yosay');
 var path = require('path');
 var fs = require('fs');
+var mkdirp = require('mkdirp');
 
 module.exports = yeoman.generators.Base.extend({
   prompting: function () {
@@ -44,12 +45,6 @@ module.exports = yeoman.generators.Base.extend({
 
   writing: {
     app: function () {
-      // Make all the dirs because yeoman can't create an empty bower_components
-      var clientFolder = path.join(this.destinationRoot(), this.clientFolder);
-      fs.mkdirSync(clientFolder);
-      var bowerFolder = path.join(clientFolder, 'bower_components');
-      fs.mkdirSync(bowerFolder);
-
       this.fs.copyTpl(
         this.templatePath('_package.json'),
         this.destinationPath('package.json'),
@@ -85,6 +80,13 @@ module.exports = yeoman.generators.Base.extend({
         this.templatePath('_app.less'),
         this.destinationPath(path.join(path.join(this.clientFolder, 'app'),'app.less') )
       );
+
+      // Create the bower folder empty so that wiredep wont go crazy
+      var bowerFolder = path.join(path.join(this.destinationRoot(), this.clientFolder), 'bower_components');
+      mkdirp(bowerFolder, function(err){
+        if (err)
+          console.log(err);
+      });
     },
 
     projectfiles: function () {
