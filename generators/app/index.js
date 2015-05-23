@@ -79,10 +79,12 @@ module.exports = yeoman.generators.Base.extend({
         { name: this.name,
           description: this.description }
       );
-      this.fs.copy(
-        this.templatePath('index.html'),
-        this.destinationPath(path.join(this.clientFolder,'index.html') )
-      );
+      if(!this.isMaterial) {
+        this.fs.copy(
+          this.templatePath('index.html'),
+          this.destinationPath(path.join(this.clientFolder, 'index.html'))
+        );
+      }
       this.fs.copy(
         this.templatePath('_app.less'),
         this.destinationPath(path.join(path.join(this.clientFolder, 'app'),'app.less') )
@@ -133,6 +135,10 @@ module.exports = yeoman.generators.Base.extend({
         this.fs.copy(
           this.templatePath('angular-material/shell/shell.less'),
           this.destinationPath(path.join(shellPath, 'shell.less'))
+        );
+        this.fs.copy(
+          this.templatePath('angular-material/index.html'),
+          this.destinationPath(path.join(this.clientFolder, 'index.html'))
         );
       }
     }
