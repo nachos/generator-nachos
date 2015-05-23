@@ -158,9 +158,10 @@ module.exports = yeoman.generators.Base.extend({
           this.destinationPath(path.join(mainPath, 'main.less'))
         );
 
-        this.fs.copy(
+        this.fs.copyTpl(
           this.templatePath('angular-material/index.html'),
-          this.destinationPath(path.join(this.clientFolder, 'index.html'))
+          this.destinationPath(path.join(this.clientFolder, 'index.html')),
+          { name: this.name}
         );
       }
     }
