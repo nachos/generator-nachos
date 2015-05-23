@@ -95,7 +95,6 @@ module.exports = yeoman.generators.Base.extend({
           console.log(err);
       });
     },
-
     projectfiles: function () {
       this.fs.copy(
         this.templatePath('editorconfig'),
@@ -105,6 +104,37 @@ module.exports = yeoman.generators.Base.extend({
         this.templatePath('jshintrc'),
         this.destinationPath('.jshintrc')
       );
+    },
+    angularMaterial: function() {
+      if(this.isMaterial)
+      {
+        var appPath = path.join(this.clientFolder, 'app');
+
+        this.fs.copyTpl(
+          this.templatePath('angular-material/app.js'),
+          this.destinationPath(path.join(appPath, 'app.js')),
+          { name: this.name}
+        );
+        var shellPath = path.join(appPath, 'shell');
+        this.fs.copyTpl(
+          this.templatePath('angular-material/shell/shell.js'),
+          this.destinationPath(path.join(shellPath, 'shell.js')),
+          { name: this.name}
+        );
+        this.fs.copyTpl(
+          this.templatePath('angular-material/shell/shell.controller.js'),
+          this.destinationPath(path.join(shellPath, 'shell.controller.js')),
+          { name: this.name}
+        );
+        this.fs.copy(
+          this.templatePath('angular-material/shell/shell.html'),
+          this.destinationPath(path.join(shellPath, 'shell.html'))
+        );
+        this.fs.copy(
+          this.templatePath('angular-material/shell/shell.less'),
+          this.destinationPath(path.join(shellPath, 'shell.less'))
+        );
+      }
     }
   },
 

@@ -1,0 +1,19 @@
+<div class="shell md-whiteframe-z1" ng-class="{ maximized: isFullScreen}" flex layout="column" >
+  <div class="titlebar" layout="row" layout-align="space-between center">
+    <div flex class="content">
+    </div>
+    <div layout="row" layout-align="space-between end">
+      <md-button flex ng-click="hide()" aria-label="minimize">
+        <i class="mdi mdi-minus"></i>
+      </md-button>
+      <md-button flex ng-click="toggleFullscreen()" aria-label="toggle full-screen">
+        <i class="mdi mdi-checkbox-blank-outline" ng-hide="isFullScreen"></i>
+        <i class="mdi mdi-image-filter-none" ng-show="isFullScreen"></i>
+      </md-button>
+      <md-button flex ng-click="close()" md-ink-ripple="#ff0000" aria-label="close">
+        <i class="mdi mdi-close"></i>
+      </md-button>
+    </div>
+  </div>
+  <div ui-view flex layout="column"></div>
+</div>
