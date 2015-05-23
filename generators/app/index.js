@@ -102,7 +102,9 @@ module.exports = yeoman.generators.Base.extend({
   },
 
   install: function () {
-    this.log(yosay('Soon we will install node-webkit, this might take a little while'))
-    this.installDependencies();
+    this.log(yosay('Installing dependencies, this might take a while'))
+    this.npmInstall(['del','gulp','gulp-inject','gulp-jshint','gulp-less','gulp-livereload',
+                     'gulp-util','jshint-stylish','lazypipe','run-sequence','wiredep'], { 'saveDev': true })
+    this.npmInstall(['nw'], { 'save': true});
   }
 });
