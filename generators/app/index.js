@@ -32,12 +32,19 @@ module.exports = yeoman.generators.Base.extend({
       name    : 'clientFolder',
       message : 'How would you like your client folder to be named?',
       default : 'client'
+    },
+    {
+      type    : 'confirm',
+      name    : 'isMaterial',
+      message : 'Would you like angular-material to be a part of your app?',
+      default : true
     }];
 
     this.prompt(prompts, function (answers) {
       this.name = answers.name;
       this.description = answers.description;
       this.clientFolder = answers.clientFolder;
+      this.isMaterial = answers.isMaterial;
 
       done();
     }.bind(this));
@@ -106,5 +113,8 @@ module.exports = yeoman.generators.Base.extend({
     this.npmInstall(['del','gulp','gulp-inject','gulp-jshint','gulp-less','gulp-livereload',
                      'gulp-util','jshint-stylish','lazypipe','run-sequence','wiredep'], { 'saveDev': true })
     this.npmInstall(['nw'], { 'save': true});
+
+    if(this.isMaterial)
+      this.bowerInstall(['angular','angular-material','mdi','angular-ui-router'], { 'save': true });
   }
 });
