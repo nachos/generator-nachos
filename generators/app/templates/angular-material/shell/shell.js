@@ -5,7 +5,7 @@ angular.module('<%= name %>App')
     $stateProvider
       .state('shell', {
         abstract: true,
-        controller: 'ShellController',
+        controller: 'shellController',
         templateUrl: 'app/shell/shell.html'
       });
   });

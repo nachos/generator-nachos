@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('<%= name %>App')
-  .controller('ShellController', ['$scope', function ($scope, $window) {
+  .controller('shellController', ['$scope', function ($scope) {
   var ngui = require('nw.gui');
   var nwin = ngui.Window.get();
   $scope.isFullScreen = false;

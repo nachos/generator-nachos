@@ -117,6 +117,7 @@ module.exports = yeoman.generators.Base.extend({
           this.destinationPath(path.join(appPath, 'app.js')),
           { name: this.name}
         );
+
         var shellPath = path.join(appPath, 'shell');
         this.fs.copyTpl(
           this.templatePath('angular-material/shell/shell.js'),
@@ -136,6 +137,27 @@ module.exports = yeoman.generators.Base.extend({
           this.templatePath('angular-material/shell/shell.less'),
           this.destinationPath(path.join(shellPath, 'shell.less'))
         );
+
+        var mainPath = path.join(appPath, 'main');
+        this.fs.copyTpl(
+          this.templatePath('angular-material/main/main.js'),
+          this.destinationPath(path.join(mainPath, 'main.js')),
+          { name: this.name}
+        );
+        this.fs.copyTpl(
+          this.templatePath('angular-material/main/main.controller.js'),
+          this.destinationPath(path.join(mainPath, 'main.controller.js')),
+          { name: this.name}
+        );
+        this.fs.copy(
+          this.templatePath('angular-material/main/main.html'),
+          this.destinationPath(path.join(mainPath, 'main.html'))
+        );
+        this.fs.copy(
+          this.templatePath('angular-material/main/main.less'),
+          this.destinationPath(path.join(mainPath, 'main.less'))
+        );
+
         this.fs.copy(
           this.templatePath('angular-material/index.html'),
           this.destinationPath(path.join(this.clientFolder, 'index.html'))
@@ -148,7 +170,7 @@ module.exports = yeoman.generators.Base.extend({
     this.log(yosay('Installing dependencies, this might take a while'))
     this.npmInstall(['del','gulp','gulp-inject','gulp-jshint','gulp-less','gulp-livereload',
                      'gulp-util','jshint-stylish','lazypipe','run-sequence','wiredep'], { 'saveDev': true })
-    this.npmInstall(['nw'], { 'save': true});
+    //this.npmInstall(['nw'], { 'save': true});
 
     if(this.isMaterial)
       this.bowerInstall(['angular','angular-material','mdi','angular-ui-router'], { 'save': true });
