@@ -171,7 +171,7 @@ module.exports = yeoman.generators.Base.extend({
     this.log(yosay('Installing dependencies, this might take a while'))
     this.npmInstall(['del','gulp','gulp-inject','gulp-jshint','gulp-less','gulp-livereload',
                      'gulp-util','jshint-stylish','lazypipe','run-sequence','wiredep'], { 'saveDev': true })
-    //this.npmInstall(['nw'], { 'save': true});
+    this.npmInstall(['nw'], { 'save': true});
 
     if(this.isMaterial)
       this.bowerInstall(['angular','angular-material','mdi','angular-ui-router'], { 'save': true });
