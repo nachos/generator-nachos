@@ -1,0 +1,11 @@
+{
+  "name": "<%= name %>",
+  "version": "0.0.0",
+  "description": "<%= description %>",
+  "repository": {
+    "type": "",
+    "url": ""
+  },
+  "author": "",
+  "license": ""
+}

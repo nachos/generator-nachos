@@ -1,0 +1,8 @@
+{
+  "name": "<%= name %>",
+  "version": "0.0.0",
+  "type": "dip",
+  "main": "index.html",
+  "settings": "<%= clientFolder %>\\global-settings\\global-settings.html",
+  "layout": "widget"
+}
